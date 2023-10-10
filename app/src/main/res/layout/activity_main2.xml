@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="345dp"
+        android:layout_height="762dp"
         android:layout_marginStart="37dp"
         android:layout_marginTop="59dp"
         android:layout_marginEnd="37dp"
@@ -27,7 +27,7 @@
             android:ems="10"
             android:hint="Teléfono"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textSize="48sp" />
 
         <EditText
             android:id="@+id/nombre"
@@ -36,7 +36,7 @@
             android:ems="10"
             android:hint="Nombre"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textSize="48sp" />
 
         <EditText
             android:id="@+id/apellidos"
@@ -45,7 +45,7 @@
             android:ems="10"
             android:hint="Apellidos"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textSize="48sp" />
 
         <EditText
             android:id="@+id/correo"
@@ -54,7 +54,8 @@
             android:ems="10"
             android:hint="Correo electrónico"
             android:inputType="text"
-            android:textSize="20sp" />
+            android:textAllCaps="true"
+            android:textSize="48sp" />
 
         <Space
             android:layout_width="match_parent"
