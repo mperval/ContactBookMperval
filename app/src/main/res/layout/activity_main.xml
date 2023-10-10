@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="337dp"
-        android:layout_height="639dp"
+        android:layout_width="365dp"
+        android:layout_height="657dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
@@ -34,11 +34,12 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/aniadirContacto"
-        android:layout_width="59dp"
-        android:layout_height="49dp"
-        android:text="+"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton8"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout" />
 
