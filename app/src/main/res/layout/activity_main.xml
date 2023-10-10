@@ -34,12 +34,12 @@
 
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton8"
-        android:layout_width="63dp"
-        android:layout_height="63dp"
-        android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
+    <Button
+        android:id="@+id/btnAniadir"
+        android:layout_width="67dp"
+        android:layout_height="74dp"
+        android:text="+"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout" />
 
