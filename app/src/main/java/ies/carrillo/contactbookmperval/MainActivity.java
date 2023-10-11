@@ -25,22 +25,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btnAniadir = findViewById(R.id.btnAniadir);
+
+        // Obtén una referencia al ListView y asocia el adaptador
+        ListView contactListView = findViewById(R.id.listaContactos);
+
         // Configura el adaptador para la lista de contactos
         contactAdapter = new Adapters(this, Database.lista);
 
         SortedSet<Contact> contactList = Database.lista;
 
-        // Obtén una referencia al ListView y asocia el adaptador
-        ListView contactListView = findViewById(R.id.listaContactos);
+        contactListView.setAdapter(contactAdapter);
 
-        Button btnAniadir = findViewById(R.id.btnAniadir);
+        contactListView.setOnItemClickListener((parent, view, position, id) -> {
+            Contact contact = (Contact) parent.getItemAtPosition(position);
+            Intent intent = new Intent(this, MainActivity_contact.class);
+            intent.putExtra("nombre", contact.getNombre());
+            intent.putExtra("apellidos", contact.getApellidos());
+            intent.putExtra("numero", contact.getNumero());
+            intent.putExtra("correo", contact.getCorreo());
+
+            startActivity(intent);
+        });
+
+
 
         btnAniadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Inicia MainActivity2 para agregar un nuevo contacto y espera un resultado
+                // Inicia MainActivity2.
                 Intent intentMain2 = new Intent(MainActivity.this, MainActivity2.class);
-                launchMainActivity2.launch(intentMain2);
+                startActivity(intentMain2);
             }
         });
     }
