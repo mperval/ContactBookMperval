@@ -13,6 +13,7 @@ import java.util.SortedSet;
 
 import adapters.Adapters;
 import data.Database;
+import models.Contact;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,19 +28,12 @@ public class MainActivity extends AppCompatActivity {
         // Configura el adaptador para la lista de contactos
         contactAdapter = new Adapters(this, Database.lista);
 
+        SortedSet<Contact> contactList = Database.lista;
+
         // Obtén una referencia al ListView y asocia el adaptador
         ListView contactListView = findViewById(R.id.listaContactos);
-        contactListView.setAdapter(contactAdapter);
 
         Button btnAniadir = findViewById(R.id.btnAniadir);
-
-        // Configura el adaptador para la lista de contactos
-        contactAdapter = new Adapters(this, Database.lista);
-
-        // Obtén una referencia al ListView y asocia el adaptador
-        ListView listaContactos = findViewById(R.id.listaContactos);
-        contactListView.setAdapter(contactAdapter);
-
 
         btnAniadir.setOnClickListener(new View.OnClickListener() {
             @Override

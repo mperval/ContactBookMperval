@@ -1,23 +1,28 @@
 package models;
 
 public class Contact {
-    private int numero;
+    private int id;
+    private String numero;
     private String nombre;
     private String apellidos;
     private String correo;
 
-    public Contact(int numero, String nombre, String apellidos, String correo) {
+    public Contact(){
+
+    }
+    public Contact(int id, String numero, String nombre, String apellidos, String correo) {
+        this.id = id;
         this.numero = numero;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.correo = correo;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -45,6 +50,14 @@ public class Contact {
         this.correo = correo;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Contact{" +
@@ -52,6 +65,7 @@ public class Contact {
                 ", nombre = '" + nombre + '\'' +
                 ", apellidos = '" + apellidos + '\'' +
                 ", correo = '" + correo + '\'' +
+                ", id = '" + id + '\'' +
                 '}';
     }
 }
