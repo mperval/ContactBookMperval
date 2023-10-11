@@ -16,8 +16,8 @@ public class Database {
         lista.add(contact);
     }
     // Obtener todos los contactos como una lista
-    public static List<Contact> getContacts() {
-        return new ArrayList<>(lista);
+    public static SortedSet<Contact> getContacts() {
+        return lista;
     }
 
 }

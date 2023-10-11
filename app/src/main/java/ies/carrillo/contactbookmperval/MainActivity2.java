@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.text.BreakIterator;
-
 public class MainActivity2 extends AppCompatActivity {
 
     @Override
@@ -24,14 +22,6 @@ public class MainActivity2 extends AppCompatActivity {
 
         Button btnAtras = findViewById(R.id.btnAtras);
         Button btnAniadir = findViewById(R.id.btnAniadir);
-
-        Intent intent = new Intent();
-        intent.putExtra("telefono", telefono.getText().toString());
-        intent.putExtra("nombre", nombre.getText().toString());
-        intent.putExtra("apellidos", apellidos.getText().toString());
-        intent.putExtra("correo", correo.getText().toString());
-        setResult(RESULT_OK, intent);
-        finish();
 
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override

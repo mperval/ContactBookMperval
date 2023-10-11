@@ -32,7 +32,7 @@ public class Adapters extends ArrayAdapter<Contact> {
         TextView correo = convertView.findViewById(R.id.correo);
 
         // Establece los valores de los TextViews con los datos del contacto
-        telefono.setText(contact.getNumero());
+        telefono.setText(String.valueOf(contact.getNumero()));
         nombre.setText(contact.getNombre());
         apellidos.setText(contact.getApellidos());
         correo.setText(contact.getCorreo());
