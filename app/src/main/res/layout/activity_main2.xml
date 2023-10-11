@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="345dp"
-        android:layout_height="762dp"
+        android:layout_width="327dp"
+        android:layout_height="699dp"
         android:layout_marginStart="37dp"
         android:layout_marginTop="59dp"
         android:layout_marginEnd="37dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/telefono"
+            android:id="@+id/telefono2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -30,7 +30,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/nombre"
+            android:id="@+id/nombre2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -39,7 +39,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/apellidos"
+            android:id="@+id/apellidos2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -48,7 +48,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/correo"
+            android:id="@+id/correo2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

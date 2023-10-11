@@ -1,13 +1,16 @@
 package models;
 
-public class Contact {
+public class Contact implements Comparable<Contact> {
     private int id;
     private String numero;
     private String nombre;
     private String apellidos;
     private String correo;
 
-    public Contact(){
+    public Contact() {
+
+    }
+    public Contact(Contact c) {
 
     }
     public Contact(int id, String numero, String nombre, String apellidos, String correo) {
@@ -67,5 +70,24 @@ public class Contact {
                 ", correo = '" + correo + '\'' +
                 ", id = '" + id + '\'' +
                 '}';
+    }
+
+    public int compareTo(Contact c) {
+        int result = 0;
+
+        if (this.getNombre().compareTo(c.getNombre()) == 0) {
+            if (this.getApellidos().compareTo(c.getApellidos()) == 0) {
+                result = this.getNumero().compareTo(c.getNumero());
+            }
+            result = this.getApellidos().compareTo(c.getApellidos());
+        } else {
+            result = this.getNombre().compareTo(c.getNombre());
+        }
+
+        return result;
+    }
+
+    public boolean equals(Contact c) {
+        return this.getNumero().equals(c.getNumero());
     }
 }

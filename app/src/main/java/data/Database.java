@@ -23,22 +23,41 @@ public class Database {
        }
        return result;
    }
-    public static void populateDatabase() {
-        for(int i=1; i<20; i++) {
+    /*public static void populateDatabase() {
+        for(int i = 1; i < 5; i++) {
             Contact c = new Contact();
-            c.setId(4 +i);
+
             c.setNombre("Persona " +i);
             c.setApellidos("Apellidos" +i);
             c.setNumero("654345234");
-            c.setCorreo("persona" + i + "@iescarrillo.es");
+            c.setCorreo("persona" + i + "iescarrillo.es");
             lista.add(c);
         }
-    }
-   public SortedSet<Contact> getContactList(){
-       return lista;
-   }
+    }*/
 
    public static void addContact(Contact contact){
+
        lista.add(contact);
    }
+   public static void editContact (Contact contact){
+       for(Contact c : lista){
+           if(c.getId()==contact.getId()){
+               c.setId(Database.getID());
+               c.setNombre(contact.getNombre());
+               c.setApellidos(contact.getApellidos());
+               c.setNumero(contact.getNumero());
+               c.setCorreo(contact.getCorreo());
+
+               return;
+           }
+       }
+   }
+    public static void removeContact (Contact contact){
+        for(Contact c : lista) {
+            if (c.getId() == contact.getId()) {
+                lista.remove(contact);
+                return;
+            }
+        }
+    }
 }
