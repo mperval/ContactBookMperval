@@ -85,7 +85,7 @@ public class MainActivityEditar extends AppCompatActivity {
                 String apellidosText = apellidos.getText().toString();
                 String correoText = correo.getText().toString();
 
-                // creo el objeto contacto y lo añado.
+
                 Contact c = new Contact();
 
                 c.setNombre(nombreText);

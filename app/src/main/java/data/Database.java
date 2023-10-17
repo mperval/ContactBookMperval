@@ -42,7 +42,8 @@ public class Database {
    public static void editContact (Contact contact){
        for(Contact c : lista){
            if(c.getId()==contact.getId()){
-               c.setId(Database.getID());
+               lista.remove(contact);
+               c.setId(contact.getId());
                c.setNombre(contact.getNombre());
                c.setApellidos(contact.getApellidos());
                c.setNumero(contact.getNumero());
