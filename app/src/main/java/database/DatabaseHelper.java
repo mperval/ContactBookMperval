@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AGENDA APP";
     private  static final int DATABASE_VERSION = 1;
-    private static final String CREATE_CONTACT_TABLE = "CREATE TABLE Contact(_id INTEGER PRIMARY KEY AUTOINCREMENT, number TEXT, name TEXT, lastName TEXT, email TEXT)";
+    private static final String CREATE_CONTACT_TABLE = "CREATE TABLE Diary(id INTEGER PRIMARY KEY AUTOINCREMENT, number TEXT, name TEXT, lastName TEXT, email TEXT)";
 
-    private static final String DROP_CONTACT_TABLE = "DROP TABLE IF EXISTS Contact";
+    private static final String DROP_CONTACT_TABLE = "DROP TABLE IF EXISTS Diary";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

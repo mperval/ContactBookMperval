@@ -29,13 +29,12 @@ public class ContactDataSource {
     public void close(){
         dbHelper.close();
     }
-    public void insertContact(String number, String name, String lastName, String email){
+    public void insertDiaryContact(String number, String name, String lastName, String email){
         openWritableDatabase();
 
         ContentValues values = new ContentValues();
+
         values.put("number", number);
-
-
 
         if(name == null){
             values.put("name", "AnonimoLoquisiiimoo");
@@ -50,64 +49,67 @@ public class ContactDataSource {
 
         values.put("email", email);
 
-        database.insert("Book", "AnonimoLoquisiiimoo", values);
+        database.insert("Diary", "AnonimoLoquisiiimoo", values);
         close();
     }
-    public void updateBook(int id, String title, String author){
+    public void updateDiary(int id, String number, String name, String lastName, String email){
 
         openWritableDatabase();
         //solo añadimos los pares clave-valor de las columnas que queremos actualizar.
         ContentValues values = new ContentValues();
-        values.put("title", title);
-        values.put("author", author);
+
+        values.put("number", number);
+        values.put("name", name);
+        values.put("lastName", lastName);
+        values.put("email", email);
 
         String[] args = new String[]{String.valueOf(id)};
 
-        database.update("Book", values, "_id=?", args);
+        database.update("Diary", values, "id=?", args);
         //database.update("Book", values, "author = ?", new String[]{"Cervantes"});
 
     }
-    public void deleteBook(int id){
+    public void deleteDiaryContact(int id){
 
         openWritableDatabase();
 
         String[] args = new String[]{String.valueOf(id)};
-        database.delete("Book", "_id=?", args);
+        database.delete("Diary", "id=?", args);
 
         close();
     }
 
-    public List<Contact> getAllBooks(){
+    public List<Contact> getAllDiarysContact(){
         List<Contact> result = new ArrayList<>();
 
         openWritableDatabase();
 
-        String[] columns ={"_id", "numero", "nombre", "apellidos", "correo"};
-        Cursor bookCursor = database.query("book", columns, null, null, null, null, null);
+        String[] columns ={"id", "number", "name", "lastName", "email"};
+        Cursor diaryCursor = database.query("Diary", columns, null, null, null, null, null);
         //Cursor bookCursor = database.rawQuery("SELECT _id, title, author FROM book WHERE title = ? OR  author ");
-        if(bookCursor != null && bookCursor.moveToFirst()){
+        if(diaryCursor != null && diaryCursor.moveToFirst()){
             do{
-                int idIndex = bookCursor.getColumnIndex("_id");//el cursor busca la columna
-                int numberIndex = bookCursor.getColumnIndex("numero");
-                int nameIndex = bookCursor.getColumnIndex("nombre");
-                int lastNameIndex = bookCursor.getColumnIndex("apellidos");
-                int correoIndex = bookCursor.getColumnIndex("correo");
+                int idIndex = diaryCursor.getColumnIndex("id");//el cursor busca la columna
+                int numberIndex = diaryCursor.getColumnIndex("number");
+                int nameIndex = diaryCursor.getColumnIndex("name");
+                int lastNameIndex = diaryCursor.getColumnIndex("lastName");
+                int emailIndex = diaryCursor.getColumnIndex("email");
 
                 // o atraves de indicacion de columna. int id = booksCursor.getInt(0);
 
-                int id = bookCursor.getInt(idIndex);
-                String number = bookCursor.getString(numberIndex);
-                String name = bookCursor.getString(nameIndex);
-                String lastName = bookCursor.getString(lastNameIndex);
-                String correo = bookCursor.getString(correoIndex);
+                int id = diaryCursor.getInt(idIndex);
+                String number = diaryCursor.getString(numberIndex);
+                String name = diaryCursor.getString(nameIndex);
+                String lastName = diaryCursor.getString(lastNameIndex);
+                String email = diaryCursor.getString(emailIndex);
                 Contact contact = new Contact();
                 contact.setId(id);
                 contact.setNumero(number);
                 contact.setNombre(name);
                 contact.setApellidos(lastName);
-                contact.setCorreo(correo);
+                contact.setCorreo(email);
 
-            }while(bookCursor.moveToNext());
+            }while(diaryCursor.moveToNext());
         }
         close();
         return result;
