@@ -82,24 +82,30 @@ public class ContactDataSource {
 
         openWritableDatabase();
 
-        String[] columns ={"_id", "title", "author",};
+        String[] columns ={"_id", "numero", "nombre", "apellidos", "correo"};
         Cursor bookCursor = database.query("book", columns, null, null, null, null, null);
         //Cursor bookCursor = database.rawQuery("SELECT _id, title, author FROM book WHERE title = ? OR  author ");
         if(bookCursor != null && bookCursor.moveToFirst()){
             do{
                 int idIndex = bookCursor.getColumnIndex("_id");//el cursor busca la columna
-                int titleIndex = bookCursor.getColumnIndex("title");
-                int authorIndex = bookCursor.getColumnIndex("author");
+                int numberIndex = bookCursor.getColumnIndex("numero");
+                int nameIndex = bookCursor.getColumnIndex("nombre");
+                int lastNameIndex = bookCursor.getColumnIndex("apellidos");
+                int correoIndex = bookCursor.getColumnIndex("correo");
+
                 // o atraves de indicacion de columna. int id = booksCursor.getInt(0);
 
                 int id = bookCursor.getInt(idIndex);
-                String title = bookCursor.getString(titleIndex);
-                String author = bookCursor.getString(authorIndex);
-
+                String number = bookCursor.getString(numberIndex);
+                String name = bookCursor.getString(nameIndex);
+                String lastName = bookCursor.getString(lastNameIndex);
+                String correo = bookCursor.getString(correoIndex);
                 Contact contact = new Contact();
                 contact.setId(id);
-                contact.set(title);
-                contact.setAuthor(author);
+                contact.setNumero(number);
+                contact.setNombre(name);
+                contact.setApellidos(lastName);
+                contact.setCorreo(correo);
 
             }while(bookCursor.moveToNext());
         }
