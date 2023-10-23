@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import java.util.List;
 import java.util.SortedSet;
 import java.util.stream.Collectors;
 
@@ -13,9 +15,10 @@ import ies.carrillo.contactbookmperval.R;
 import models.Contact;
 
 public class Adapters extends ArrayAdapter<Contact> {
-
-    public Adapters(Context context, SortedSet<Contact> contactos){
+    private List<Contact> contactList;
+    public Adapters(Context context, List<Contact> contactos){
         super(context, 0, contactos.stream().collect(Collectors.toList()));
+        contactList = contactos;
     }
 
     @Override

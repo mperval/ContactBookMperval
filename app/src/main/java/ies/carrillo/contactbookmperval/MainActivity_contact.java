@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity_contact extends AppCompatActivity {
-
+    private int id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +21,10 @@ public class MainActivity_contact extends AppCompatActivity {
         TextView apellidos = (TextView) findViewById(R.id.apellidos);
         TextView telefono = (TextView) findViewById(R.id.telefono);
         TextView correo = (TextView) findViewById(R.id.correo);
+
         Intent intent = getIntent();
         if (intent != null) {
-
-
+            id = intent.getIntExtra("id", -1);
             nombre.setText(intent.getStringExtra("nombre"));
             apellidos.setText(intent.getStringExtra("apellidos"));
             telefono.setText(intent.getStringExtra("telefono"));
@@ -46,6 +46,7 @@ public class MainActivity_contact extends AppCompatActivity {
                 intent.putExtra("apellidos", apellidos.getText().toString());
                 intent.putExtra("telefono", telefono.getText().toString());
                 intent.putExtra("correo", correo.getText().toString());
+                intent.putExtra("id", id);
 
                 startActivity(intent);
             }

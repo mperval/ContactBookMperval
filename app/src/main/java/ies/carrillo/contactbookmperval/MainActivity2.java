@@ -9,15 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import data.Database;
+
+import datasource.ContactDataSource;
 import models.Contact;
 
 public class MainActivity2 extends AppCompatActivity {
-
+    private ContactDataSource cds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+
 
         EditText telefono = findViewById(R.id.telefono2);
         EditText nombre = findViewById(R.id.nombre2);
@@ -53,21 +56,15 @@ public class MainActivity2 extends AppCompatActivity {
                 String apellidosText = apellidos.getText().toString();
                 String correoText = correo.getText().toString();
 
-                // creo el objeto contacto y lo añado.
-                Contact c = new Contact();
 
-                c.setId(Database.getID());//funcion de Database
-                c.setNombre(nombreText);
-                c.setApellidos(apellidosText);
-                c.setNumero(telefonoText);
-                c.setCorreo(correoText);
 
-                if(c.getNumero().isEmpty() || c.getApellidos().isEmpty() || c.getCorreo().isEmpty() || c.getNombre().isEmpty()){
+                if(telefonoText.isEmpty() || nombreText.isEmpty() || apellidosText.isEmpty() || correoText.isEmpty()){
 
                     Toast.makeText(getApplicationContext(), "no puedes dejar ningun campo vacio", Toast.LENGTH_SHORT).show();
 
                 }else {
-                    Database.addContact(c);
+                    cds.insertDiaryContact(nombreText, apellidosText, telefonoText, correoText);
+
                     Intent intent = new Intent(MainActivity2.this, MainActivity.class);
                     startActivity(intent);
                 }

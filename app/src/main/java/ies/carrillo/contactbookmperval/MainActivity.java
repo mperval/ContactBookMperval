@@ -5,33 +5,41 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
 import java.util.SortedSet;
 
 import adapters.Adapters;
-import data.Database;
+import database.DatabaseHelper;
+import datasource.ContactDataSource;
 import models.Contact;
 
 public class MainActivity extends AppCompatActivity {
-
+    private ContactDataSource cds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Database.populateDatabase();
+
         Button btnAniadir = findViewById(R.id.btnAniadir);
 
-        // Obtén una referencia al ListView y asocia el adaptador
+        // Obtén una referencia al ListView y asocia el adaptador<
         ListView contactListView = findViewById(R.id.listaContactos);
 
+        List<Contact> contactList = cds.getAllDiarysContact();
         // Configura el adaptador para la lista de contactos
-        Adapters contactAdapter = new Adapters((Context)this, Database.lista);
+        Adapters contactAdapter = new Adapters((Context)this, contactList);
 
-        SortedSet<Contact> contactList = Database.lista;
+        DatabaseHelper helper = new DatabaseHelper(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+
+
 
         contactListView.setAdapter(contactAdapter);
 
@@ -57,5 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentMain2);
             }
         });
+        cds.close();
     }
 }

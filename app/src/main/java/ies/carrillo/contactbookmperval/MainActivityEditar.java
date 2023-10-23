@@ -9,11 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import data.Database;
+
+import datasource.ContactDataSource;
 import models.Contact;
 
 public class MainActivityEditar extends AppCompatActivity {
-
+    private ContactDataSource cds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,22 +49,17 @@ public class MainActivityEditar extends AppCompatActivity {
                 String apellidosText = apellidos.getText().toString();
                 String correoText = correo.getText().toString();
 
-                // creo el objeto contacto y lo añado.
-                Contact c = new Contact();
 
-                c.setNombre(nombreText);
-                c.setApellidos(apellidosText);
-                c.setNumero(telefonoText);
-                c.setCorreo(correoText);
 
-                if(c.getNumero().isEmpty() || c.getApellidos().isEmpty() || c.getCorreo().isEmpty() || c.getNombre().isEmpty()){
+                if(telefonoText.isEmpty() || nombreText.isEmpty() || apellidosText.isEmpty() || correoText.isEmpty()){
 
                     Toast.makeText(getApplicationContext(), "no puedes dejar ningun campo vacio", Toast.LENGTH_SHORT).show();
                 }else{
-                    Database.editContact(c);
+                    if (intent != null) {
+                        int id = intent.getIntExtra("id", -1);
+                        cds.updateDiary(id, telefonoText, nombreText, apellidosText, correoText);
+                    }
                 }
-
-
 
                 Intent intent = new Intent(MainActivityEditar.this, MainActivity.class);
                 startActivity(intent);
@@ -93,7 +89,7 @@ public class MainActivityEditar extends AppCompatActivity {
                 c.setNumero(telefonoText);
                 c.setCorreo(correoText);
 
-                Database.removeContact(c);
+
 
                 Intent intent = new Intent(MainActivityEditar.this, MainActivity.class);
                 startActivity(intent);
