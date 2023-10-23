@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import database.DatabaseHelper;
 import models.Contact;
@@ -25,6 +27,9 @@ public class ContactDataSource {
 
         database = dbHelper.getWritableDatabase();
     }
+    public void openReadableDatabase() throws SQLException{
+        database = dbHelper.getReadableDatabase();
+    }
     //cerrar conexion.
     public void close(){
         dbHelper.close();
@@ -35,21 +40,16 @@ public class ContactDataSource {
         ContentValues values = new ContentValues();
 
         values.put("number", number);
-
-        if(name == null){
-            values.put("name", "AnonimoLoquisiiimoo");
-        }else {
-            values.put("name", name);
-        }
-        if(lastName == null){
-            values.put("lastName", "ApellidoAnonimoLoquisiiimoo");
-        }else {
-            values.put("lastName", lastName);
-        }
-
+        values.put("lastName", lastName);
         values.put("email", email);
 
-        database.insert("Diary", "AnonimoLoquisiiimoo", values);
+        if(name == null){
+            values.put("name", "anonimo");
+        }else{
+            values.put("name", name);
+        }
+
+        database.insert("Diary", null, values);
         close();
     }
     public void updateDiary(int id, String number, String name, String lastName, String email){
@@ -79,10 +79,10 @@ public class ContactDataSource {
         close();
     }
 
-    public List<Contact> getAllDiarysContact(){
-        List<Contact> result = new ArrayList<>();
+    public SortedSet<Contact> getAllDiarysContact(){
+        SortedSet<Contact> result = new TreeSet<>();
 
-        openWritableDatabase();
+        openReadableDatabase();
 
         String[] columns ={"id", "number", "name", "lastName", "email"};
         Cursor diaryCursor = database.query("Diary", columns, null, null, null, null, null);
@@ -102,17 +102,19 @@ public class ContactDataSource {
                 String name = diaryCursor.getString(nameIndex);
                 String lastName = diaryCursor.getString(lastNameIndex);
                 String email = diaryCursor.getString(emailIndex);
+
                 Contact contact = new Contact();
                 contact.setId(id);
-                contact.setNumero(number);
-                contact.setNombre(name);
-                contact.setApellidos(lastName);
-                contact.setCorreo(email);
+                contact.setNumber(number);
+                contact.setName(name);
+                contact.setLastName(lastName);
+                contact.setEmail(email);
+
+                result.add(contact);
 
             }while(diaryCursor.moveToNext());
         }
         close();
         return result;
     }
-    
 }

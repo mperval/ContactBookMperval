@@ -28,18 +28,17 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnAniadir = findViewById(R.id.btnAniadir);
 
-        // Obtén una referencia al ListView y asocia el adaptador<
+        cds = new ContactDataSource(this);
+        cds.openWritableDatabase();
+
+        cds.close();
+
+        SortedSet<Contact> contactList = cds.getAllDiarysContact();
+
         ListView contactListView = findViewById(R.id.listaContactos);
 
-        List<Contact> contactList = cds.getAllDiarysContact();
-        // Configura el adaptador para la lista de contactos
         Adapters contactAdapter = new Adapters((Context)this, contactList);
-
-        DatabaseHelper helper = new DatabaseHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-
-
+        contactAdapter.notifyDataSetChanged();
 
         contactListView.setAdapter(contactAdapter);
 
@@ -49,18 +48,16 @@ public class MainActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, MainActivity_contact.class);
             intent.putExtra("id", contact.getId());
-            intent.putExtra("nombre", contact.getNombre());
-            intent.putExtra("apellidos", contact.getApellidos());
-            intent.putExtra("telefono", contact.getNumero());
-            intent.putExtra("correo", contact.getCorreo());
+            intent.putExtra("name", contact.getName());
+            intent.putExtra("lastName", contact.getLastName());
+            intent.putExtra("number", contact.getNumber());
+            intent.putExtra("email", contact.getEmail());
 
             startActivity(intent);
         });
-
         btnAniadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Inicia MainActivity2.
                 Intent intentMain2 = new Intent(MainActivity.this, MainActivity2.class);
                 startActivity(intentMain2);
             }

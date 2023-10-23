@@ -8,8 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import datasource.ContactDataSource;
+
 public class MainActivity_contact extends AppCompatActivity {
-    private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,13 +25,12 @@ public class MainActivity_contact extends AppCompatActivity {
         TextView correo = (TextView) findViewById(R.id.correo);
 
         Intent intent = getIntent();
-        if (intent != null) {
-            id = intent.getIntExtra("id", -1);
-            nombre.setText(intent.getStringExtra("nombre"));
-            apellidos.setText(intent.getStringExtra("apellidos"));
-            telefono.setText(intent.getStringExtra("telefono"));
-            correo.setText(intent.getStringExtra("correo"));
-        }
+        int id = intent.getIntExtra("id", -1);
+        nombre.setText(intent.getStringExtra("name"));
+        apellidos.setText(intent.getStringExtra("lastName"));
+        telefono.setText(intent.getStringExtra("number"));
+        correo.setText(intent.getStringExtra("email"));
+
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,10 +43,10 @@ public class MainActivity_contact extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity_contact.this, MainActivityEditar.class);
 
-                intent.putExtra("nombre", nombre.getText().toString());
-                intent.putExtra("apellidos", apellidos.getText().toString());
-                intent.putExtra("telefono", telefono.getText().toString());
-                intent.putExtra("correo", correo.getText().toString());
+                intent.putExtra("name", nombre.getText().toString());
+                intent.putExtra("lastName", apellidos.getText().toString());
+                intent.putExtra("number", telefono.getText().toString());
+                intent.putExtra("email", correo.getText().toString());
                 intent.putExtra("id", id);
 
                 startActivity(intent);

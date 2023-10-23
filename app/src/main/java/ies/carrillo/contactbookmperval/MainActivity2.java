@@ -8,10 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-
 import datasource.ContactDataSource;
-import models.Contact;
+
 
 public class MainActivity2 extends AppCompatActivity {
     private ContactDataSource cds;
@@ -20,7 +18,10 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-
+        cds = new ContactDataSource(this);
+        cds.getAllDiarysContact();
+        cds.openWritableDatabase();
+        cds.close();
 
         EditText telefono = findViewById(R.id.telefono2);
         EditText nombre = findViewById(R.id.nombre2);
@@ -51,26 +52,19 @@ public class MainActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String telefonoText = telefono.getText().toString();
-                String nombreText = nombre.getText().toString();
-                String apellidosText = apellidos.getText().toString();
-                String correoText = correo.getText().toString();
-
-
+                String telefonoText = telefono.getText().toString().trim();
+                String nombreText = nombre.getText().toString().trim();
+                String apellidosText = apellidos.getText().toString().trim();
+                String correoText = correo.getText().toString().trim();
 
                 if(telefonoText.isEmpty() || nombreText.isEmpty() || apellidosText.isEmpty() || correoText.isEmpty()){
-
                     Toast.makeText(getApplicationContext(), "no puedes dejar ningun campo vacio", Toast.LENGTH_SHORT).show();
-
                 }else {
-                    cds.insertDiaryContact(nombreText, apellidosText, telefonoText, correoText);
-
+                    cds.insertDiaryContact(telefono.getText().toString(), nombre.getText().toString(), apellidos.getText().toString(), correo.getText().toString());
+                    Toast.makeText(getApplicationContext(), "contacto agragado con exito", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity2.this, MainActivity.class);
                     startActivity(intent);
                 }
-
-
-
             }
         });
     }

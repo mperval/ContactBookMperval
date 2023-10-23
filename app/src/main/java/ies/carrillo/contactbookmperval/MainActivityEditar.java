@@ -15,10 +15,16 @@ import models.Contact;
 
 public class MainActivityEditar extends AppCompatActivity {
     private ContactDataSource cds;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_editar);
+
+        cds = new ContactDataSource(this);
+        cds.getAllDiarysContact();
+        cds.openWritableDatabase();
+        cds.close();
 
         EditText telefono = findViewById(R.id.telefono);
         EditText nombre = findViewById(R.id.nombre);
@@ -31,10 +37,10 @@ public class MainActivityEditar extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            String nombre1 = intent.getStringExtra("nombre");
-            String apellidos1 = intent.getStringExtra("apellidos");
-            String telefono1 = intent.getStringExtra("telefono");
-            String correo1 = intent.getStringExtra("correo");
+            String nombre1 = intent.getStringExtra("name");
+            String apellidos1 = intent.getStringExtra("lastName");
+            String telefono1 = intent.getStringExtra("number");
+            String correo1 = intent.getStringExtra("email");
 
             nombre.setText(nombre1);
             apellidos.setText(apellidos1);
@@ -56,11 +62,9 @@ public class MainActivityEditar extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "no puedes dejar ningun campo vacio", Toast.LENGTH_SHORT).show();
                 }else{
                     if (intent != null) {
-                        int id = intent.getIntExtra("id", -1);
-                        cds.updateDiary(id, telefonoText, nombreText, apellidosText, correoText);
+                        cds.updateDiary(intent.getIntExtra("id", -1), telefonoText, nombreText, apellidosText, correoText);
                     }
                 }
-
                 Intent intent = new Intent(MainActivityEditar.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -81,16 +85,15 @@ public class MainActivityEditar extends AppCompatActivity {
                 String apellidosText = apellidos.getText().toString();
                 String correoText = correo.getText().toString();
 
-
                 Contact c = new Contact();
 
-                c.setNombre(nombreText);
-                c.setApellidos(apellidosText);
-                c.setNumero(telefonoText);
-                c.setCorreo(correoText);
-
-
-
+                c.setName(nombreText);
+                c.setLastName(apellidosText);
+                c.setNumber(telefonoText);
+                c.setEmail(correoText);
+                if (intent != null) {
+                    cds.deleteDiaryContact(intent.getIntExtra("id", -1));
+                }
                 Intent intent = new Intent(MainActivityEditar.this, MainActivity.class);
                 startActivity(intent);
             }
