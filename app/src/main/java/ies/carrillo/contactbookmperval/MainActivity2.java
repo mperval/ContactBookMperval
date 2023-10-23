@@ -11,6 +11,7 @@ import android.widget.Toast;
 import datasource.ContactDataSource;
 
 
+
 public class MainActivity2 extends AppCompatActivity {
     private ContactDataSource cds;
     @Override
@@ -32,6 +33,7 @@ public class MainActivity2 extends AppCompatActivity {
         Button btnAniadir = findViewById(R.id.btnAniadir);
         Button btnlimpiar = findViewById(R.id.btnLimpiar);
 
+        // Configura un listener para el botón "Atras" que regresa a la actividad principal
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +41,7 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Configura un listener para el botón "Limpiar" que borra los campos de entrada
         btnlimpiar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -48,18 +51,21 @@ public class MainActivity2 extends AppCompatActivity {
                 correo.setText("");
             }
         });
+        // Configura un listener para el botón "Aniadir" que agrega un nuevo contacto a la base de datos
         btnAniadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Obtiene el texto de los campos de entrada
                 String telefonoText = telefono.getText().toString().trim();
                 String nombreText = nombre.getText().toString().trim();
                 String apellidosText = apellidos.getText().toString().trim();
                 String correoText = correo.getText().toString().trim();
 
+                // Verifica si algún campo está vacío y muestra un mensaje de error si es necesario
                 if(telefonoText.isEmpty() || nombreText.isEmpty() || apellidosText.isEmpty() || correoText.isEmpty()){
                     Toast.makeText(getApplicationContext(), "no puedes dejar ningun campo vacio", Toast.LENGTH_SHORT).show();
                 }else {
+                    // Inserta el nuevo contacto en la base de datos
                     cds.insertDiaryContact(telefono.getText().toString(), nombre.getText().toString(), apellidos.getText().toString(), correo.getText().toString());
                     Toast.makeText(getApplicationContext(), "contacto agragado con exito", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity2.this, MainActivity.class);

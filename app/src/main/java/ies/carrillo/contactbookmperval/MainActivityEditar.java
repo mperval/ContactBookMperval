@@ -36,6 +36,7 @@ public class MainActivityEditar extends AppCompatActivity {
         Button btnEliminar = findViewById(R.id.btnEliminar);
 
         Intent intent = getIntent();
+        //cojo los datos del intent
         if (intent != null) {
             String nombre1 = intent.getStringExtra("name");
             String apellidos1 = intent.getStringExtra("lastName");
@@ -47,6 +48,7 @@ public class MainActivityEditar extends AppCompatActivity {
             telefono.setText(telefono1);
             correo.setText(correo1);
         }
+        // Configura un listener para el botón "Aceptar" que actualiza un contacto en la base de datos
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,12 +57,10 @@ public class MainActivityEditar extends AppCompatActivity {
                 String apellidosText = apellidos.getText().toString();
                 String correoText = correo.getText().toString();
 
-
-
                 if(telefonoText.isEmpty() || nombreText.isEmpty() || apellidosText.isEmpty() || correoText.isEmpty()){
-
                     Toast.makeText(getApplicationContext(), "no puedes dejar ningun campo vacio", Toast.LENGTH_SHORT).show();
                 }else{
+                    // Si se pasó una intent válida, actualiza el contacto en la base de datos
                     if (intent != null) {
                         cds.updateDiary(intent.getIntExtra("id", -1), telefonoText, nombreText, apellidosText, correoText);
                     }
@@ -69,7 +69,7 @@ public class MainActivityEditar extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //  regresa a la actividad principal sin realizar cambios
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +77,7 @@ public class MainActivityEditar extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Configura un listener para el botón "Eliminar" que elimina un contacto de la base de datos.
         btnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +92,7 @@ public class MainActivityEditar extends AppCompatActivity {
                 c.setLastName(apellidosText);
                 c.setNumber(telefonoText);
                 c.setEmail(correoText);
+                // elimino el contacto mediante el ID.
                 if (intent != null) {
                     cds.deleteDiaryContact(intent.getIntExtra("id", -1));
                 }

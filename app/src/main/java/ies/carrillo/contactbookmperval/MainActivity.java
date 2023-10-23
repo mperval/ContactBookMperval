@@ -28,22 +28,31 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnAniadir = findViewById(R.id.btnAniadir);
 
+        //inicializa la BBDD de contactos.
         cds = new ContactDataSource(this);
+
+        //abre la conexion con la BBDD.
         cds.openWritableDatabase();
 
+        //cierra la conexion.
         cds.close();
 
+        // Obtiene una lista ordenada de contactos desde la BBDD
         SortedSet<Contact> contactList = cds.getAllDiarysContact();
 
+        // Inicialización del ListView para mostrar los contactos
         ListView contactListView = findViewById(R.id.listaContactos);
 
+        // Creación de un adaptador personalizado para los contactos y notificación de cambios.
         Adapters contactAdapter = new Adapters((Context)this, contactList);
         contactAdapter.notifyDataSetChanged();
 
+        // Establece el adaptador en el ListView
         contactListView.setAdapter(contactAdapter);
 
         contactListView.setOnItemClickListener((parent, view, position, id) -> {
 
+            // Obtiene el contacto seleccionado
             Contact contact = (Contact) parent.getItemAtPosition(position);
 
             Intent intent = new Intent(this, MainActivity_contact.class);
@@ -55,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
             startActivity(intent);
         });
+        // Configura un listener para el botón "Añadir" que inicia una nueva actividad para agregar un contacto
         btnAniadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
